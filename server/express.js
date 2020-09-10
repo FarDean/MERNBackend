@@ -6,7 +6,11 @@ import helmet from 'helmet'
 import Template from './../template'
 import userRouter from './routes/user.routes'
 import authRouter from './routes/auth.routes'
+import devBundle from './devBundle'
 const app = express()
+devBundle.compile(app)
+
+const CURRENT_WORKING_DIRECTORY = process.cwd()
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -16,7 +20,7 @@ app.use(helmet())
 app.use(cors())
 app.use('/',userRouter)
 app.use('/auth',authRouter)
-
+app.use('/dist',express.static(CURRENT_WORKING_DIRECTORY + '/dist'))
 
 app.get('/',(req,res)=>{
     res.status(200).send(Template())
