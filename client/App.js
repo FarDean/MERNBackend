@@ -1,9 +1,21 @@
 import React from 'react'
+import { hot } from "react-hot-loader";
+import { ThemeProvider } from "@material-ui/styles";
+import { BrowserRouter } from 'react-router-dom';
+import MainRouter from './MainRouter'
+import theme from './theme'
+import { GlobalProvider } from './context/GlobalContext';
 
-export default function App() {
+function App() {
     return (
-        <div>
-            <h1>hi motherfucker</h1>
-        </div>
+        <GlobalProvider>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <MainRouter />
+                </ThemeProvider>        
+            </BrowserRouter>
+        </GlobalProvider>
     )
 }
+
+export default hot(module)(App)

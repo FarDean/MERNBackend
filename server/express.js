@@ -7,6 +7,7 @@ import Template from './../template'
 import userRouter from './routes/user.routes'
 import authRouter from './routes/auth.routes'
 import devBundle from './devBundle'
+import path from 'path'
 const app = express()
 devBundle.compile(app)
 
@@ -18,9 +19,10 @@ app.use(cookieParser())
 app.use(compress())
 app.use(helmet())
 app.use(cors())
+app.use('dist',express.static(path.resolve(CURRENT_WORKING_DIRECTORY, 'dist')));
+
 app.use('/',userRouter)
-app.use('/auth',authRouter)
-app.use('/dist',express.static(CURRENT_WORKING_DIRECTORY + '/dist'))
+app.use('/',authRouter)
 
 app.get('/',(req,res)=>{
     res.status(200).send(Template())
