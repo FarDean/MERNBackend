@@ -6,7 +6,14 @@ import MainRouter from './MainRouter'
 import theme from './theme'
 import { GlobalProvider } from './context/GlobalContext';
 
+
 function App() {
+    React.useEffect(()=>{
+        const jssStyles = document.querySelector('#jss-server-side')
+        if(jssStyles) {
+            jssStyles.parentNode.removeChild(jssStyles)
+        }
+    },[])
     return (
         <GlobalProvider>
             <BrowserRouter>

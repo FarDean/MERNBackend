@@ -21,6 +21,17 @@ export default (state,action)=> {
                 user: action.payload
             }
         
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                user:action.payload
+            }
+
+        case 'DELETE_USER':
+            return {
+                ...state,
+                message: action.payload
+            }
         default:
             return state
     }

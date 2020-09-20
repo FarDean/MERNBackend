@@ -1,5 +1,3 @@
-import { signout } from "./api-auth";
-
 const auth = {
     autheticate:(jwt,cb)=>{
         if(typeof window !== 'undefined') sessionStorage.setItem('jwt',JSON.stringify(jwt))

@@ -6,16 +6,19 @@ import Signup from './user/Signup';
 import Users from './user/Users';
 import Signin from './user/Signin'
 import Profile from './user/Profile';
+import PrivateRoute from './auth/PrivateRoute';
+import EditProfile from './user/EditProfile';
 
 export default function MainRouter() {
     return (
-        <Switch>
+       <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/users' component={Users} />
-            <Route path='/users/:userId' component={Profile} />
+            <Route exact path='/users/:userId' component={Profile} />
+            <PrivateRoute path='/user/edit/:userId' component={EditProfile} />
             <Route path='/signup' component={Signup} />
             <Route path='/signin' component={Signin} />
+        
         </Switch>
-
     )
 }

@@ -8,7 +8,8 @@ const initialState = {
     message:null,
     error:null,
     token:null,
-    user:{}
+    user:{},
+    setUser:()=>{}
 }
 
 // Create Context 
@@ -119,6 +120,43 @@ export const GlobalProvider = ({children})=>{
         }
     }
 
+    async function updateUser(jwt,params,user){
+        const config = {
+            headers:{
+                'Authorization' : `Bearer ${jwt}`
+            }
+        }
+        try {
+            const res = await axios.put(`/api/users/${params.userId}`,user,config)
+            console.log(res);
+            dispatch({
+                type: 'UPDATE_USER',
+                payload:res.data
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function deleteUser(jwt,params){
+        const config = {
+            headers: {
+                'Authorization' : `Bearer ${jwt}`
+            }
+        }
+
+        try {
+            const res = axios.delete(`/api/users/${params.userId}`,config)
+
+            dispatch({
+                type: 'DELETE_USER',
+                payload: 'acount deleted successfully'
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (<GlobalContext.Provider value={{
         users:state.users,
         loading:state.loading,
@@ -127,8 +165,11 @@ export const GlobalProvider = ({children})=>{
         getUsers,
         signIn,
         read,
+        updateUser,
+        deleteUser,
         user:state.user,
-        token:state.token
+        token:state.token,
+        setUser:state.setUser
     }}>
         {children}
     </GlobalContext.Provider>)
