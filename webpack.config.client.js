@@ -5,7 +5,7 @@ const CURRENT_WORKING_DIRECTORY = process.cwd()
 const config = {
     name: "browser",
     mode: "development",
-    devtool: 'eval-source-map',
+    devtool: 'cheap-module-source-map',
     entry: [
         'webpack-hot-middleware/client?reload=true', 
         path.join(CURRENT_WORKING_DIRECTORY, 'client/index.js')
@@ -20,19 +20,18 @@ const config = {
           {
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            use: ['babel-loader']
+            use: ['babel-loader'],
+            },
+            {
+                test:/\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+                use:'file-loader'
             }     
         ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
-    ],
-    resolve:{
-        alias:{
-            
-        }
-    }
+    ]
 }
 
 module.exports = config;

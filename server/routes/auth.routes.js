@@ -3,10 +3,10 @@ import authCtrl from '../controllers/auth.controller'
 
 const router = express.Router()
 
-router.route('/signin')
+router.route('/auth/signin')
     .post(authCtrl.signin)
 
-router.route('/signout')
+router.route('/auth/signout')
     .get(authCtrl.signout)
 
 export default router
